@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     wget \
     libpcre3 \
     libpcre3-dev \
+    libpcre2-dev \
     libssl-dev \
     libtool \
     autoconf \
