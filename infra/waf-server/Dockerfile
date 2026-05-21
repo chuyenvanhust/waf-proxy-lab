@@ -62,7 +62,7 @@ RUN git clone --depth 1 \
     https://github.com/coreruleset/coreruleset \
     /etc/nginx/modsecurity-crs \
     && cp /etc/nginx/modsecurity-crs/crs-setup.conf.example \
-          /etc/nginx/modsecurity-crs/crs-setup.conf.example.bak
+          /etc/nginx/modsecurity-crs/crs-setup.conf
 
 # ── Copy config ──────────────────────────────────────
 COPY waf/nginx/nginx.conf              /etc/nginx/nginx.conf
