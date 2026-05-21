@@ -13,8 +13,7 @@ GRANT ALL PRIVILEGES ON dvwa.* TO 'dvwa'@'localhost';
 FLUSH PRIVILEGES;
 SQL
 
-echo "[backend] Khởi tạo schema DVWA..."
-mysql -u dvwa -p'p@ssw0rd' dvwa < /var/www/html/dvwa/database/dvwa.mdf 2>/dev/null || true
+echo "[backend] Database sẵn sàng, DVWA sẽ tự setup qua web..."
 
 echo "[backend] Khởi động Apache..."
 apache2-foreground
