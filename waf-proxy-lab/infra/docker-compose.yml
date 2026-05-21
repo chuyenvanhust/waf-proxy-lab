@@ -1,0 +1,63 @@
+version: '3.9'
+
+networks:
+  waf-lab-net:
+    driver: bridge
+
+services:
+
+  # ─────────────────────────────────────────
+  # WAF SERVER — Nginx + ModSecurity + CRS
+  # Người A phụ trách
+  # ─────────────────────────────────────────
+  waf-server:
+    build:
+      context: ..
+      dockerfile: infra/waf-server/Dockerfile
+    container_name: waf-server
+    hostname: waf-server
+    networks:
+      - waf-lab-net
+    ports:
+      - "80:80"
+    volumes:
+      - ../logs:/var/log/modsec        # Mount log ra host
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  # ─────────────────────────────────────────
+  # BACKEND — DVWA (PHP + MySQL)
+  # Người B phụ trách
+  # ─────────────────────────────────────────
+  backend:
+    build:
+      context: ..
+      dockerfile: infra/backend/Dockerfile
+    container_name: backend
+    hostname: backend
+    networks:
+      - waf-lab-net
+    # KHÔNG expose port ra ngoài — chỉ WAF truy cập được
+    restart: unless-stopped
+
+  # ─────────────────────────────────────────
+  # ATTACKER — Kali Linux + tools
+  # Người B phụ trách
+  # ─────────────────────────────────────────
+  attacker:
+    build:
+      context: ..
+      dockerfile: infra/attacker/Dockerfile
+    container_name: attacker
+    hostname: attacker
+    networks:
+      - waf-lab-net
+    volumes:
+      - ../attack:/opt/attack           # Mount attack scripts
+      - ../logs:/opt/logs               # Mount logs để đọc
+    stdin_open: true
+    tty: true
+    depends_on:
+      - waf-server
+    restart: unless-stopped

