@@ -50,6 +50,7 @@ RUN NGINX_VERSION=$(dpkg -s nginx | grep Version | awk '{print $2}' | cut -d'-' 
     && cd nginx-${NGINX_VERSION} \
     && ./configure \
         --with-compat \
+        --without-http_gzip_module \
         --add-dynamic-module=/opt/ModSecurity-nginx \
     && make modules \
     && cp objs/ngx_http_modsecurity_module.so \
