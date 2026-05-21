@@ -28,12 +28,10 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # ── Build ModSecurity v3 từ source ───────────────────
-RUN git clone --depth 1 \
+RUN git clone --recursive \
     https://github.com/owasp-modsecurity/ModSecurity \
     /opt/ModSecurity \
     && cd /opt/ModSecurity \
-    && git submodule init \
-    && git submodule update \
     && ./build.sh \
     && ./configure \
     && make -j$(nproc) \
