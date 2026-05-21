@@ -43,7 +43,8 @@ RUN git clone --depth 1 \
     https://github.com/owasp-modsecurity/ModSecurity-nginx \
     /opt/ModSecurity-nginx
 
-RUN NGINX_VERSION=$(nginx -v 2>&1 | sed 's/.*\///') \
+RUN NGINX_VERSION=$(dpkg -s nginx | grep Version | awk '{print $2}' | cut -d'-' -f1) \
+    && echo "Building nginx module for version: ${NGINX_VERSION}" \
     && wget -q http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz \
     && tar -xzf nginx-${NGINX_VERSION}.tar.gz \
     && cd nginx-${NGINX_VERSION} \
