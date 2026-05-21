@@ -67,7 +67,7 @@ RUN git clone --depth 1 \
 # ── Copy config ──────────────────────────────────────
 COPY waf/nginx/nginx.conf              /etc/nginx/nginx.conf
 COPY waf/nginx/waf-site.conf           /etc/nginx/conf.d/default.conf
-COPY waf/nginx/proxy-params.conf       /etc/nginx/conf.d/proxy-params.conf
+COPY waf/nginx/proxy-params.conf       /etc/nginx/proxy-params.conf
 COPY waf/modsecurity/modsecurity.conf  /etc/modsecurity/modsecurity.conf
 COPY waf/modsecurity/crs-setup.conf    /etc/nginx/modsecurity-crs/crs-setup.conf
 COPY waf/modsecurity/custom-rules.conf /etc/nginx/modsecurity-crs/rules/custom-rules.conf
